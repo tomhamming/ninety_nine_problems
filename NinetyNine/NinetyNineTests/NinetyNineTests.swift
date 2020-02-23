@@ -36,4 +36,24 @@ class NinetyNineTests: XCTestCase {
         XCTAssertEqual(l?.last, -1)
     }
 
+    func testP02()
+    {
+        var l = List(1)
+        XCTAssertEqual(l?.pennultimate, nil)
+        
+        l = List(1, 2)
+        XCTAssertEqual(l?.pennultimate, 1)
+        
+        l = List(0)
+        XCTAssertEqual(l?.pennultimate, nil)
+        
+        l = List(1, 0, 1)
+        XCTAssertEqual(l?.pennultimate, 0)
+        
+        l = List(1, 2, 3)
+        XCTAssertEqual(l?.pennultimate, 2)
+        
+        l = List(1, 2, 5, 5, 4)
+        XCTAssertEqual(l?.pennultimate, 5)
+    }
 }

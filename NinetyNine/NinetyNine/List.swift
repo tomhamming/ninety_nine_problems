@@ -38,4 +38,20 @@ class List<T> {
         
         return result
     }
+    
+    var pennultimate: T?
+    {
+        guard let _ = self.nextItem else { return nil }
+        
+        var current: List<T>? = self.nextItem
+        var prev: List<T>? = self
+        var result: T? = nil
+        repeat {
+            result = prev?.value
+            prev = current
+            current = current?.nextItem
+        } while (current != nil)
+        
+        return result
+    }
 }
