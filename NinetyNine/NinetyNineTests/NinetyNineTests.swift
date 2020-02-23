@@ -71,4 +71,16 @@ class NinetyNineTests: XCTestCase {
         XCTAssertEqual(l?[2], 2)
         XCTAssertEqual(l?[100], nil)
     }
+    
+    func testP04()
+    {
+        var l = List(1)
+        XCTAssertEqual(l?.length, 1)
+        
+        l = List(1, 2, 3)
+        XCTAssertEqual(l?.length, 3)
+        
+        l = List(1, 1, 2, 3, 5, 8)
+        XCTAssertEqual(l?.length, 6)
+    }
 }

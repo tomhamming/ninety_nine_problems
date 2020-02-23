@@ -66,4 +66,15 @@ class List<T> {
         
         return (count == index ? current?.value : nil)
     }
+    
+    lazy var length: Int = {
+        var result = 0
+        var current: List<T>? = self
+        repeat {
+            current = current?.nextItem
+            result += 1
+        } while (current != nil)
+        
+        return result
+    }()
 }
