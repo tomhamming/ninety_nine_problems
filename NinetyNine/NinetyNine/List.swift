@@ -67,7 +67,7 @@ class List<T> {
         return (count == index ? current?.value : nil)
     }
     
-    lazy var length: Int = {
+    var length: Int {
         var result = 0
         var current: List<T>? = self
         repeat {
@@ -76,5 +76,5 @@ class List<T> {
         } while (current != nil)
         
         return result
-    }()
+    }
 }
