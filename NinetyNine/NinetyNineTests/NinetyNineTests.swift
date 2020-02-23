@@ -83,4 +83,53 @@ class NinetyNineTests: XCTestCase {
         l = List(1, 1, 2, 3, 5, 8)
         XCTAssertEqual(l?.length, 6)
     }
+    
+    func testP05()
+    {
+        var l = List(1)
+        l?.reverse()
+        XCTAssert(listsEqual(first: l!, second: List(1)!))
+        
+        l = List(1, 2)
+        l?.reverse()
+        XCTAssert(listsEqual(first: l!, second: List(2, 1)!))
+        
+        l = List(1, 2, 3)
+        l?.reverse()
+        XCTAssert(listsEqual(first: l!, second: List(3, 2, 1)!))
+        
+        l = List(1, 2, 3, 4, 5)
+        l?.reverse()
+        XCTAssert(listsEqual(first: l!, second: List(5, 4, 3, 2, 1)!))
+        
+        l = List(1, 2, 3, 4, 5, 6)
+        l?.reverse()
+        XCTAssert(listsEqual(first: l!, second: List(6, 5, 4, 3, 2, 1)!))
+        
+        l = List(1, 2, 3, 4, 5, 4, 3, 2, 2)
+        l?.reverse()
+        XCTAssert(listsEqual(first: l!, second: List(2, 2, 3, 4, 5, 4, 3, 2, 1)!))
+    }
+    
+    private func listsEqual(first: List<Int>, second: List<Int>) -> Bool
+    {
+        let myLen = first.length
+        let otherLen = second.length
+        guard myLen == otherLen else { return false }
+        
+        var myCurrent: List<Int>? = first
+        var otherCurrent: List<Int>? = second
+        while (myCurrent != nil)
+        {
+            if (myCurrent?.value != otherCurrent?.value)
+            {
+                return false
+            }
+            
+            myCurrent = myCurrent?.nextItem
+            otherCurrent = otherCurrent?.nextItem
+        }
+        
+        return true
+    }
 }

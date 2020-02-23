@@ -10,7 +10,7 @@
 /// and a tail, which is a list itself.
 ///
 /// See http://www.enekoalonso.com/projects/99-swift-problems/#linked-lists
-class List<T> {
+class List<T> : CustomDebugStringConvertible {
     var value: T
     var nextItem: List<T>?
 
@@ -76,5 +76,51 @@ class List<T> {
         } while (current != nil)
         
         return result
+    }
+    
+    var debugDescription: String { return "\(value)" } 
+    
+    func reverse()
+    {
+        guard self.nextItem != nil else { return }
+        
+        guard self.nextItem?.nextItem != nil else {
+            let tmp = self.value
+            self.value = self.nextItem!.value
+            self.nextItem!.value = tmp
+            return
+        }
+        
+        guard self.nextItem?.nextItem?.nextItem != nil else {
+            let tmp = self.value
+            self.value = self.nextItem!.nextItem!.value
+            self.nextItem!.nextItem!.value = tmp
+            return
+        }
+        
+        var prev: List<T>? = self.nextItem
+        let originalPrev = prev
+        var current = prev?.nextItem
+        var next = current?.nextItem
+        
+        prev?.nextItem = nil
+        
+        repeat {
+            current?.nextItem = prev
+            
+            prev = current
+            if (next != nil)
+            {
+                current = next
+                next = next?.nextItem
+            }
+        } while (next != nil)
+        
+        self.nextItem = prev
+        originalPrev?.nextItem = current
+        
+        let tmp = self.value
+        self.value = current!.value
+        current!.value = tmp
     }
 }
