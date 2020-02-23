@@ -54,4 +54,16 @@ class List<T> {
         
         return result
     }
+    
+    subscript(index: Int) -> T? {
+        var count = 0
+        var current: List<T>? = self;
+        while (current != nil && count < index)
+        {
+            current = current?.nextItem
+            count += 1
+        }
+        
+        return (count == index ? current?.value : nil)
+    }
 }
