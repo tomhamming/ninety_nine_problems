@@ -98,6 +98,10 @@ class NinetyNineTests: XCTestCase {
         l?.reverse()
         XCTAssert(listsEqual(first: l!, second: List(3, 2, 1)!))
         
+        l = List(1, 2, 3, 4)
+        l?.reverse()
+        XCTAssert(listsEqual(first: l!, second: List(4, 3, 2, 1)!))
+        
         l = List(1, 2, 3, 4, 5)
         l?.reverse()
         XCTAssert(listsEqual(first: l!, second: List(5, 4, 3, 2, 1)!))
