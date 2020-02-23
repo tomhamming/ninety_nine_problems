@@ -131,3 +131,24 @@ class List<T> : CustomDebugStringConvertible {
         current.value = tmp
     }
 }
+
+extension List : Equatable where T : Equatable
+{
+    static func == (lhs: List<T>, rhs: List<T>) -> Bool
+    {
+        var lCurrent: List<T>? = lhs
+        var rCurrent: List<T>? = rhs
+        while (lCurrent != nil)
+        {
+            if (lCurrent?.value != rCurrent?.value)
+            {
+                return false
+            }
+            
+            lCurrent = lCurrent?.nextItem
+            rCurrent = rCurrent?.nextItem
+        }
+        
+        return true
+    }
+}

@@ -84,56 +84,45 @@ class NinetyNineTests: XCTestCase {
         XCTAssertEqual(l?.length, 6)
     }
     
-    func testP05()
+    func testEquality()
     {
-        var l = List(1)
-        l?.reverse()
-        XCTAssert(listsEqual(first: l!, second: List(1)!))
-        
-        l = List(1, 2)
-        l?.reverse()
-        XCTAssert(listsEqual(first: l!, second: List(2, 1)!))
-        
-        l = List(1, 2, 3)
-        l?.reverse()
-        XCTAssert(listsEqual(first: l!, second: List(3, 2, 1)!))
-        
-        l = List(1, 2, 3, 4)
-        l?.reverse()
-        XCTAssert(listsEqual(first: l!, second: List(4, 3, 2, 1)!))
-        
-        l = List(1, 2, 3, 4, 5)
-        l?.reverse()
-        XCTAssert(listsEqual(first: l!, second: List(5, 4, 3, 2, 1)!))
-        
-        l = List(1, 2, 3, 4, 5, 6)
-        l?.reverse()
-        XCTAssert(listsEqual(first: l!, second: List(6, 5, 4, 3, 2, 1)!))
-        
-        l = List(1, 2, 3, 4, 5, 4, 3, 2, 2)
-        l?.reverse()
-        XCTAssert(listsEqual(first: l!, second: List(2, 2, 3, 4, 5, 4, 3, 2, 1)!))
+        XCTAssertEqual(List(1), List(1))
+        XCTAssertEqual(List(1, 2), List(1, 2))
+        XCTAssertEqual(List(1, 2, 3), List(1, 2, 3))
+        XCTAssertNotEqual(List(1), List(2))
+        XCTAssertNotEqual(List(1, 2), List(1, 3))
+        XCTAssertNotEqual(List(1, 2), List(1))
+        XCTAssertNotEqual(List(1, 2, 3), List(1, 2))
     }
     
-    private func listsEqual(first: List<Int>, second: List<Int>) -> Bool
+    func testP05()
     {
-        let myLen = first.length
-        let otherLen = second.length
-        guard myLen == otherLen else { return false }
+        var l = List(1)!
+        l.reverse()
+        XCTAssertEqual(l, List(1))
         
-        var myCurrent: List<Int>? = first
-        var otherCurrent: List<Int>? = second
-        while (myCurrent != nil)
-        {
-            if (myCurrent?.value != otherCurrent?.value)
-            {
-                return false
-            }
-            
-            myCurrent = myCurrent?.nextItem
-            otherCurrent = otherCurrent?.nextItem
-        }
+        l = List(1, 2)!
+        l.reverse()
+        XCTAssertEqual(l, List(2, 1))
         
-        return true
+        l = List(1, 2, 3)!
+        l.reverse()
+        XCTAssertEqual(l, List(3, 2, 1))
+        
+        l = List(1, 2, 3, 4)!
+        l.reverse()
+        XCTAssertEqual(l, List(4, 3, 2, 1))
+        
+        l = List(1, 2, 3, 4, 5)!
+        l.reverse()
+        XCTAssertEqual(l, List(5, 4, 3, 2, 1))
+        
+        l = List(1, 2, 3, 4, 5, 6)!
+        l.reverse()
+        XCTAssertEqual(l, List(6, 5, 4, 3, 2, 1))
+        
+        l = List(1, 2, 3, 4, 5, 4, 3, 2, 2)!
+        l.reverse()
+        XCTAssertEqual(l, List(2, 2, 3, 4, 5, 4, 3, 2, 1))
     }
 }
