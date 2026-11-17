@@ -98,7 +98,7 @@ class List<T> : CustomDebugStringConvertible {
     }
     
     func copy() -> List<T> {
-        var result = List<T>(singleValue: self.value)
+        let result = List<T>(singleValue: self.value)
         var iterator = self
         var last = result
         while let next = iterator.nextItem {
