@@ -30,17 +30,18 @@ class List<T> : CustomDebugStringConvertible {
         nextItem = List(Array(values.suffix(from: 1)))
     }
     
-    var last: T?
-    {
-        var current: List<T>? = self
-        var result: T? = nil
-        repeat
-        {
-            result = current?.value
-            current = current?.nextItem
-        } while (current != nil)
+    var tail: List<T> {
+        var result = self
+        while let tmp = result.nextItem {
+            result = tmp
+        }
         
         return result
+    }
+    
+    var last: T
+    {
+        return self.tail.value
     }
     
     var pennultimate: T?
