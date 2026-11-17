@@ -118,4 +118,24 @@ class NinetyNineTests: XCTestCase {
         l = List(1, 2, 3, 4, 5, 4, 3, 2, 2)!
         XCTAssertEqual(l.reversed(), List(2, 2, 3, 4, 5, 4, 3, 2, 1))
     }
+    
+    func testP06() {
+        var l = List(1)!
+        XCTAssertTrue(l.isPalindrome())
+        
+        l = List(1, 2)!
+        XCTAssertFalse(l.isPalindrome())
+        
+        l = List(1, 1)!
+        XCTAssertTrue(l.isPalindrome())
+        
+        l = List(1, 2, 1)!
+        XCTAssertTrue(l.isPalindrome())
+        
+        l = List(1, 2, 3, 4, 5, 4, 3, 2, 1)!
+        XCTAssertTrue(l.isPalindrome())
+        
+        l = List(1, 2, 3, 4, 5, 4, 3, 2, 2)!
+        XCTAssertFalse(l.isPalindrome())
+    }
 }

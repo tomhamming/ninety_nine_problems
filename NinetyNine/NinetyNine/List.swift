@@ -17,6 +17,10 @@ class List<T> : CustomDebugStringConvertible {
     convenience init?(_ values: T...) {
         self.init(Array(values))
     }
+    
+    init(singleValue: T) {
+        self.value = singleValue
+    }
 
     init?(_ values: [T]) {
         guard let first = values.first else {
@@ -91,6 +95,20 @@ class List<T> : CustomDebugStringConvertible {
         
         return result
     }
+    
+    func copy() -> List<T> {
+        var result = List<T>(singleValue: self.value)
+        var iterator = self
+        var last = result
+        while let next = iterator.nextItem {
+            let tmp = List<T>(singleValue: next.value)
+            last.nextItem = tmp
+            last = tmp
+            iterator = next
+        }
+        
+        return result
+    }
 }
 
 extension List : Equatable where T : Equatable
@@ -111,5 +129,10 @@ extension List : Equatable where T : Equatable
         }
         
         return true
+    }
+    
+    func isPalindrome() -> Bool {
+        let copy = self.copy()
+        return copy.reversed() == self
     }
 }
