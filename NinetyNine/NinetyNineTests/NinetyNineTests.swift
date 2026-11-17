@@ -98,31 +98,24 @@ class NinetyNineTests: XCTestCase {
     func testP05()
     {
         var l = List(1)!
-        l.reverse()
-        XCTAssertEqual(l, List(1))
+        XCTAssertEqual(l.reversed(), List(1))
         
         l = List(1, 2)!
-        l.reverse()
-        XCTAssertEqual(l, List(2, 1))
+        XCTAssertEqual(l.reversed(), List(2, 1))
         
         l = List(1, 2, 3)!
-        l.reverse()
-        XCTAssertEqual(l, List(3, 2, 1))
+        XCTAssertEqual(l.reversed(), List(3, 2, 1))
         
         l = List(1, 2, 3, 4)!
-        l.reverse()
-        XCTAssertEqual(l, List(4, 3, 2, 1))
+        XCTAssertEqual(l.reversed(), List(4, 3, 2, 1))
         
         l = List(1, 2, 3, 4, 5)!
-        l.reverse()
-        XCTAssertEqual(l, List(5, 4, 3, 2, 1))
+        XCTAssertEqual(l.reversed(), List(5, 4, 3, 2, 1))
         
         l = List(1, 2, 3, 4, 5, 6)!
-        l.reverse()
-        XCTAssertEqual(l, List(6, 5, 4, 3, 2, 1))
+        XCTAssertEqual(l.reversed(), List(6, 5, 4, 3, 2, 1))
         
         l = List(1, 2, 3, 4, 5, 4, 3, 2, 2)!
-        l.reverse()
-        XCTAssertEqual(l, List(2, 2, 3, 4, 5, 4, 3, 2, 1))
+        XCTAssertEqual(l.reversed(), List(2, 2, 3, 4, 5, 4, 3, 2, 1))
     }
 }

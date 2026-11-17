@@ -80,55 +80,16 @@ class List<T> : CustomDebugStringConvertible {
     
     var debugDescription: String { return "\(value)" } 
     
-    func reverse()
-    {
-        //special case: 1 item, no reverse operation
-        guard var prev = self.nextItem else { return }
-        
-        //special case: 2 items, just switch values
-        guard var current = prev.nextItem else {
-            let tmp = self.value
-            self.value = self.nextItem!.value
-            self.nextItem!.value = tmp
-            return
+    func reversed() -> List<T> {
+        var result = self
+        while let next = self.nextItem {
+            let tmp = next.nextItem
+            next.nextItem = result
+            result = next
+            self.nextItem = tmp
         }
         
-        //special case: 3 items, switch first and third values
-        guard current.nextItem != nil else {
-            let tmp = self.value
-            self.value = current.value
-            current.value = tmp
-            return
-        }
-        
-        //start with prev, current, next as indexes 1, 2, and 3
-        let originalPrev = prev
-        var next = current.nextItem
-        
-        //Reverse the middle n-2 items
-        //Switch current's nextItem to prev
-        //Then walk the chain forward one step
-        repeat {
-            current.nextItem = prev
-            
-            prev = current
-            current = next!
-            next = next?.nextItem
-        } while (next != nil)
-        
-        //prev is now the original second-to-last item, the new second in the chain
-        //Point self's nextItem pointer at it
-        self.nextItem = prev
-        
-        //originalPrev is the original second item, the new second-to-last in the chain
-        //current is the original last item
-        //So point originalPrev's nextItem at current
-        originalPrev.nextItem = current
-        
-        //Now switch the values of self (first item) and the original last item
-        let tmp = self.value
-        self.value = current.value
-        current.value = tmp
+        return result
     }
 }
 
