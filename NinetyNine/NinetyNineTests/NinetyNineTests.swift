@@ -163,4 +163,21 @@ class NinetyNineTests: XCTestCase {
         l = List<Any>(5, List<Any>(1, 1, List<Any>(4, 5)!)!, 2, List<Any>(3, List<Any>(5, 8)!, 42)!)!
         test(orig: l, expected: [5, 1, 1, 4, 5, 2, 3, 5, 8, 42]);
     }
+    
+    func testP08() {
+        var list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")!
+        list.compress()
+        
+        XCTAssertEqual(list, List("a", "b", "c", "a", "d", "e"))
+        
+        list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e", "f")!
+        list.compress()
+        
+        XCTAssertEqual(list, List("a", "b", "c", "a", "d", "e", "f"))
+        
+        list = List("a", "a", "a", "a", "b", "a", "c", "c", "a", "a", "d", "e", "e", "e", "e")!
+        list.compress()
+        
+        XCTAssertEqual(list, List("a", "b", "a", "c", "a", "d", "e"))
+    }
 }

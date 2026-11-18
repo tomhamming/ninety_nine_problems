@@ -202,4 +202,19 @@ extension List : Equatable where T : Equatable
         let copy = self.copy()
         return copy.reversed() == self
     }
+    
+    func compress() {
+        var currNode = self
+        var next = self.nextItem
+        while next != nil {
+            if next?.value != currNode.value {
+                currNode.nextItem = next
+                currNode = next!
+            }
+            
+            next = next?.nextItem
+        }
+        
+        currNode.nextItem = nil
+    }
 }
