@@ -138,4 +138,29 @@ class NinetyNineTests: XCTestCase {
         l = List(1, 2, 3, 4, 5, 4, 3, 2, 2)!
         XCTAssertFalse(l.isPalindrome())
     }
+    
+    func testP07() {
+        func test(orig: List<Any>, expected: [Int]) {
+            let flat = orig.flatten()
+            
+            var actual: [Int] = []
+            var current: (any ListProtocol)? = flat
+            while let node = current {
+                actual.append(node.payload as! Int)
+                current = node.next
+            }
+            
+            XCTAssertEqual(actual, expected)
+        }
+        
+        var l = List<Any>(List<Any>(1, 1)!, 2, List<Any>(3, List<Any>(5, 8)!)!)!
+        test(orig: l, expected: [1, 1, 2, 3, 5, 8]);
+        
+        
+        l = List<Any>(5, List<Any>(1, 1)!, 2, List<Any>(3, List<Any>(5, 8)!, 42)!)!
+        test(orig: l, expected: [5, 1, 1, 2, 3, 5, 8, 42]);
+        
+        l = List<Any>(5, List<Any>(1, 1, List<Any>(4, 5)!)!, 2, List<Any>(3, List<Any>(5, 8)!, 42)!)!
+        test(orig: l, expected: [5, 1, 1, 4, 5, 2, 3, 5, 8, 42]);
+    }
 }

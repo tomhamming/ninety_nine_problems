@@ -6,6 +6,51 @@
 //  Copyright © 2020 Thomas Hamming. All rights reserved.
 //
 
+protocol ListElement: Equatable {}
+
+extension Int: ListElement {}
+
+protocol ListProtocol {
+    var payload: Any { get }
+    var next: any ListProtocol? { get set }
+    static func makeSingle(_ payload: Any) -> any ListProtocol
+}
+
+extension ListProtocol {
+    func flatten() -> any ListProtocol {
+        func processElement(_ element: any ListProtocol) -> any ListProtocol {
+            if let listValue = element.payload as? any ListProtocol {
+                return listValue.flatten()
+            }
+            else {
+                return Self.makeSingle(element.payload)
+            }
+        }
+        
+        let result = processElement(self)
+        
+        var last = result.last()
+        var iterator = self.next
+        while iterator != nil {
+            let tmp = processElement(iterator!)
+            last.next = tmp
+            last = tmp.last()
+            iterator = iterator!.next
+        }
+        
+        return result
+    }
+    
+    func last() -> any ListProtocol {
+        var result: any ListProtocol = self
+        while let tmp = result.next {
+            result = tmp
+        }
+        
+        return result
+    }
+}
+
 /// A list is either empty or it is composed of a first element (head)
 /// and a tail, which is a list itself.
 ///
@@ -109,6 +154,27 @@ class List<T> : CustomDebugStringConvertible {
         }
         
         return result
+    }
+}
+
+extension List: ListElement where T: ListElement {
+    
+}
+
+extension List: ListProtocol {
+    var payload: Any { value }
+    
+    var next: (any ListProtocol)? {
+        get {
+            return self.nextItem
+        }
+        set {
+            self.nextItem = newValue as? List<T>
+        }
+    }
+    
+    static func makeSingle(_ payload: Any) -> any ListProtocol {
+        return List<T>(singleValue: payload as! T)
     }
 }
 
